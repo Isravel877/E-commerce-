@@ -10,35 +10,25 @@ import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name ="carts")
+@Table(name = "carts")
 public class Cart {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "cart_id")
+    private Long id;
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "cart_id")
-	private Long id;
-	
-	@OneToOne
-	@JoinColumn(name = "user_id")
-	private User user;
+    // A random browser-generated key lets guests keep a server-stored cart.
+    @Column(unique = true, length = 36)
+    private String cartKey;
 
-	
-	public Long getId() {
-		return id;
-	}
+    @OneToOne
+    @JoinColumn(name = "user_id")
+    private User user;
 
-	public void setId(Long id) {
-		this.id = id;
-	}
-
-	public User getUser() {
-		return user;
-	}
-
-	public void setUser(User user) {
-		this.user = user;
-	}
-	
-	
-	
+    public Long getId() { return id; }
+    public void setId(Long id) { this.id = id; }
+    public String getCartKey() { return cartKey; }
+    public void setCartKey(String cartKey) { this.cartKey = cartKey; }
+    public User getUser() { return user; }
+    public void setUser(User user) { this.user = user; }
 }
